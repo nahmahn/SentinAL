@@ -142,7 +142,7 @@ def setup_logging(stream=None, log_level=None, force_setup=False, debug_log_file
 		console=rich_console,
 		show_time=True,
 		show_path=False,
-		markup=True,
+		markup=False,
 		rich_tracebacks=True
 	)
 	

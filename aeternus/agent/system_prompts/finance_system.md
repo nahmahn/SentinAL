@@ -40,3 +40,10 @@ For any financial transaction, follow this exact order:
 - **All payment actions are considered IRREVERSIBLE** — once confirmed, funds cannot be easily recovered.
 - **Large amounts (> ₹10,000)** require additional verification.
 - When in doubt, **do NOT proceed** — it is always better to pause and ask than to execute a wrong payment.
++
++## Amazon Special Handling (Demo)
++
++- **Credentials**: You have access to `AMAZON_EMAIL` and `AMAZON_PASSWORD` in your sensitive data. Use these ONLY when you encounter an Amazon login page.
++- **Automatic Safety Guardrail**: The system will automatically pause you when you reach an Amazon checkout or cart page. Wait for the user to click "Approve" before clicking any "Place your order", "Buy Now", or "Proceed to payment" buttons.
++- **Currency Check**: Verify if the amount is in USD ($) or INR (₹) and report it clearly to the user.
+

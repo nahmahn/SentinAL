@@ -38,7 +38,15 @@ const BrowserShell = () => {
             }
             setActiveScreen('webview');
             (window as any).electronAPI?.navigate(url);
+            (e.target as HTMLInputElement).blur();
         }
+    };
+
+    const goHome = () => {
+        const homeUrl = 'https://google.com';
+        setUrlInput(homeUrl);
+        setActiveScreen('webview');
+        (window as any).electronAPI?.navigate(homeUrl);
     };
 
     const navigateTo = (screen: ScreenType) => {
@@ -80,7 +88,31 @@ const BrowserShell = () => {
                 </div>
 
                 {/* Center: Address Bar (Strictly Centered) */}
-                <div className="flex justify-center px-4">
+                <div className="flex justify-center px-4 items-center gap-2">
+                    <div className="flex gap-1 mr-1">
+                        <button 
+                            onClick={() => (window as any).electronAPI?.goBack()}
+                            className="p-1.5 rounded-lg hover:bg-surface-container transition-all duration-300 text-on-surface-variant flex items-center justify-center"
+                            title="Back"
+                        >
+                            <span className="material-symbols-outlined text-base">arrow_back</span>
+                        </button>
+                        <button 
+                            onClick={() => (window as any).electronAPI?.goForward()}
+                            className="p-1.5 rounded-lg hover:bg-surface-container transition-all duration-300 text-on-surface-variant flex items-center justify-center opacity-60 hover:opacity-100"
+                            title="Forward"
+                        >
+                            <span className="material-symbols-outlined text-base">arrow_forward</span>
+                        </button>
+                        <button 
+                            onClick={goHome}
+                            className="p-1.5 rounded-lg hover:bg-surface-container transition-all duration-300 text-secondary flex items-center justify-center"
+                            title="Back to Google"
+                        >
+                            <span className="material-symbols-outlined text-base">home</span>
+                        </button>
+                    </div>
+
                     <div className="w-full max-w-[450px] flex items-center gap-3 bg-surface-container-lowest px-4 py-2 rounded-xl shadow-[0_4px_12px_rgba(0,26,69,0.04)] group transition-all duration-300 hover:shadow-[0_8px_20px_rgba(0,26,69,0.1)] border border-outline-variant/10">
                         <span className={clsx(
                             "material-symbols-outlined text-lg transition-colors",
@@ -92,7 +124,13 @@ const BrowserShell = () => {
                             type="text"
                             value={isWebview ? urlInput : `sentinal.ai/finance/${activeScreen}`}
                             onChange={(e) => setUrlInput(e.target.value)}
-                            onFocus={() => { if (!isWebview) setUrlInput(''); }}
+                            onFocus={(e) => { 
+                                if (!isWebview) {
+                                    setUrlInput(''); 
+                                } else {
+                                    e.target.select();
+                                }
+                            }}
                             onKeyDown={handleUrlSubmit}
                             className="text-sm font-medium text-on-surface-variant flex-1 bg-transparent border-none focus:ring-0 p-0 outline-none"
                             placeholder="Search or type URL"

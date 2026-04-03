@@ -254,7 +254,14 @@ async def websocket_endpoint(websocket: WebSocket):
                         except Exception as e:
                             logger.warning(f"Failed to load finance system prompt: {e}")
 
+                    # ─── Load Sensitive Data ──────────────────────────
+                    sensitive_data = {
+                        "AMAZON_EMAIL": os.getenv("AMAZON_EMAIL", ""),
+                        "AMAZON_PASSWORD": os.getenv("AMAZON_PASSWORD", ""),
+                    }
+
                     # Define step callback for real-time updates and HITL triggers
+
                     async def on_step(browser_state, model_output, step_number):
                         try:
                             # Send thought process
@@ -286,7 +293,22 @@ async def websocket_endpoint(websocket: WebSocket):
                                 "step": step_number,
                                 "url": browser_state.url if hasattr(browser_state, 'url') else None
                             })
+
+                            # --- Demo Safety Guardrail: Force HITL on Amazon Checkout ---
+                            current_url = getattr(browser_state, 'url', '')
+                            if any(trigger in current_url for trigger in ["amazon.com/gp/cart/view", "amazon.in/gp/cart/view", "checkout/spc", "buy/spc"]):
+                                logger.info(f"🚦 SAFETY GUARDRAIL: Detected critical checkout URL: {current_url}")
+                                await websocket.send_json({
+                                    "type": "hitl_request",
+                                    "message": "🔒 Demo Safety Guardrail: Final Purchase Approval Required",
+                                    "reason": "You are on a final checkout page. As a safety measure, SentinAL requires explicit approval before the final 'Place Order' action is taken.",
+                                    "action_name": "amazon_guardrail"
+                                })
+                                if active_agent:
+                                    active_agent.pause()
+
                         except Exception as step_e:
+
                             print(f"[Agent] Error in step callback: {step_e}")
 
                     # ─── Create Agent ────────────
@@ -297,7 +319,9 @@ async def websocket_endpoint(websocket: WebSocket):
                         max_actions_per_step=10,
                         register_new_step_callback=on_step,
                         extend_system_message=extend_system_message,
+                        sensitive_data=sensitive_data,
                     )
+
                     active_agent = agent
 
                     # Register finance tools if task is financial
