@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Transaction History | Aeternus AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#001a45",
+                        "surface-container-low": "#f2f4f7",
+                        "surface-container-high": "#e6e8eb",
+                        "primary-fixed": "#d9e2ff",
+                        "on-error": "#ffffff",
+                        "primary-container": "#002e6e",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#004f69",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "tertiary-container": "#5b1d01",
+                        "surface-container": "#eceef1",
+                        "tertiary-fixed": "#ffdbce",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#006687",
+                        "primary-fixed-dim": "#afc6ff",
+                        "on-primary-fixed-variant": "#224585",
+                        "secondary-fixed": "#c0e8ff",
+                        "on-tertiary-container": "#de815c",
+                        "tertiary": "#390e00",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#71d2ff",
+                        "on-secondary-fixed": "#001e2b",
+                        "on-primary-container": "#7998de",
+                        "outline-variant": "#c4c6d2",
+                        "surface-tint": "#3d5d9e",
+                        "on-tertiary-fixed": "#370e00",
+                        "surface": "#f7f9fc",
+                        "on-primary-fixed": "#001943",
+                        "surface-dim": "#d8dadd",
+                        "surface-container-highest": "#e0e3e6",
+                        "surface-variant": "#e0e3e6",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eff1f4",
+                        "surface-bright": "#f7f9fc",
+                        "error-container": "#ffdad6",
+                        "outline": "#747781",
+                        "secondary-container": "#2dc6ff",
+                        "on-primary": "#ffffff",
+                        "background": "#f7f9fc",
+                        "tertiary-fixed-dim": "#ffb599",
+                        "on-tertiary-fixed-variant": "#773213",
+                        "on-surface": "#191c1e",
+                        "on-surface-variant": "#434750",
+                        "on-secondary-fixed-variant": "#004d66",
+                        "inverse-primary": "#afc6ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-secondary-container">
+<!-- TopNavBar Implementation -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,26,69,0.06)] h-16 flex justify-between items-center px-8 border-b border-transparent">
+<div class="flex items-center gap-12">
+<span class="text-xl font-bold tracking-tighter text-[#001A45]">Aeternus AI</span>
+<div class="hidden md:flex items-center gap-8 font-['Inter'] text-sm font-medium tracking-tight">
+<a class="text-slate-500 hover:text-[#001A45] transition-all duration-300" href="#">Dashboard</a>
+<a class="text-slate-500 hover:text-[#001A45] transition-all duration-300" href="#">Assets</a>
+<a class="text-[#006687] font-bold border-b-2 border-[#006687] pb-1" href="#">Transactions</a>
+<a class="text-slate-500 hover:text-[#001A45] transition-all duration-300" href="#">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex items-center bg-surface-container-low px-4 py-2 rounded-full gap-2 border border-transparent focus-within:border-secondary-container/30 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 placeholder:text-on-surface-variant" placeholder="Search transactions..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-500 hover:bg-slate-50 p-2 rounded-full transition-all">notifications</button>
+<button class="material-symbols-outlined text-slate-500 hover:bg-slate-50 p-2 rounded-full transition-all">settings</button>
+<button class="bg-[#001A45] text-white px-5 py-2 rounded-full text-sm font-semibold active:scale-95 transition-all">Connect Wallet</button>
+<img alt="User profile" class="w-8 h-8 rounded-full object-cover border-2 border-surface-container-high" data-alt="professional portrait of a high-net-worth individual in a modern minimalist office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD9Eb22QOgtR0Tnyc7b10ubMqK-WcpYO4Y-F5wzZCCGG2RzapcVdXhm2Y8weaPaCD6Q2qQ1vgLaGt2XYIt8VcujwTyvwMP2SxZ6N193ituaJ4BW6TBu4vrVlOU-Nm9h01n-pPtFi1scUd2BaKekNfH6XMibDkWgffBx6ZYZ1eWPxG0BR3aKXqZixEcAydLdq9nGp_YHgTzLdtyJTt7NdSVbp7KK6AFKWcP7l90u-EIpz2Jj1I2dUCfgOwu-XxDyZBREUlIA6OJIE0B"/>
+</div>
+</div>
+</nav>
+<!-- Main Content Shell -->
+<main class="pt-16 pr-80 min-h-screen">
+<div class="p-8 max-w-7xl mx-auto">
+<!-- Header Section -->
+<header class="mb-10 flex justify-between items-end">
+<div class="space-y-1">
+<h1 class="text-[3.5rem] font-bold leading-none tracking-tight text-primary">History</h1>
+<p class="text-on-surface-variant text-lg font-medium opacity-80">Refined transaction management and audit logs.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-6 py-3 rounded-xl bg-surface-container-lowest text-primary font-semibold shadow-sm hover:bg-white transition-all">
+<span class="material-symbols-outlined text-xl">filter_list</span>
+                        Filters
+                    </button>
+<button class="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-semibold shadow-lg hover:shadow-primary/20 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-xl">download</span>
+                        Export CSV
+                    </button>
+</div>
+</header>
+<!-- Stats Overview Bento -->
+<div class="grid grid-cols-12 gap-6 mb-10">
+<div class="col-span-12 lg:col-span-8 bg-primary-container rounded-[2rem] p-8 text-white relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-secondary-container font-semibold uppercase tracking-widest text-xs mb-2">Total Volume (30D)</p>
+<h2 class="text-5xl font-bold mb-6">$1,284,902.45</h2>
+<div class="flex gap-8">
+<div class="flex items-center gap-2">
+<span class="w-2 h-6 bg-secondary-container rounded-full"></span>
+<div>
+<p class="text-[10px] text-primary-fixed uppercase font-bold">Inflow</p>
+<p class="text-lg font-bold">+$842k</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-6 bg-error rounded-full"></span>
+<div>
+<p class="text-[10px] text-primary-fixed uppercase font-bold">Outflow</p>
+<p class="text-lg font-bold">-$442k</p>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute right-0 bottom-0 w-1/2 h-full opacity-20 pointer-events-none" data-alt="abstract flowing mesh gradient of deep blues and vibrant cyans with digital grain texture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCdNDtpEe0S2FlKJ_UY6AwTW1Vi71EkK59Xw2a0qBO6vMEa3V7-Da7_y-a_VaB9okd9BAA0wbjMBZsTLhOAnp-_QTuQfBtnMsITClmr8SJVQcqP9NGVmEd6kF8zo4QfCUbaYw1VgloRf6kw0uEIWGv2ZppSWVO1SXpYDgjgUrJrZz0nwwP6dmacPf3ibO8ujQY2g3fOJR7R79pX4xtBfz1WZSSczFWRfUan6osnlHb8kuqr27pytTITNK-rH48RUhE_js-XfZML_Vnl')"></div>
+</div>
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-[2rem] p-8 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-secondary-container/10 p-3 rounded-2xl">
+<span class="material-symbols-outlined text-secondary font-bold">security</span>
+</span>
+<span class="text-xs font-bold text-on-surface-variant">UPTIME 99.9%</span>
+</div>
+<h3 class="text-xl font-bold text-primary">Fraud Shield</h3>
+<p class="text-sm text-on-surface-variant mt-2">Active protection monitoring 248 nodes.</p>
+</div>
+<div class="bg-surface-container-low h-2 w-full rounded-full mt-4 overflow-hidden">
+<div class="bg-secondary h-full w-[85%] rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Transaction List -->
+<div class="space-y-4">
+<div class="flex items-center justify-between px-6 mb-2">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Transaction Details</span>
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Status &amp; Action</span>
+</div>
+<!-- Item 1: Settled -->
+<div class="group bg-surface-container-lowest rounded-[1.5rem] p-5 flex items-center justify-between hover:shadow-[0_20px_40px_rgba(0,26,69,0.06)] transition-all duration-300">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 bg-surface-container-low rounded-2xl flex items-center justify-center p-3 overflow-hidden">
+<img alt="Apple" class="w-full h-full object-contain" data-alt="minimalist tech company logo on clean white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnXEMLvpztKDuIEV93BdgjmtsIqu0Yoe_S1IPHfUceEoxZxPoIIM7WkzorhLrrf1Tt3hnvrlQ9N2CEuLoBNv29prcDL8aZrnPFIHCbygClcmj0ltDxtX1N9XdZX8Yrjn8ICyT6VMEP1oinPK72aJAYRE075tEjBTf9MBPHO2SBU3R0V4bJ4t-qFSLwq57eCi9U7E7xsHqUhPfkhozYITDtkdgtesP2MvQagv7Mz50GcOFtTiaWt1eHWFiIIKZFAH-XaERpF2yXbGCu"/>
+</div>
+<div>
+<h4 class="text-lg font-bold text-primary">Apple Store, Fifth Ave</h4>
+<div class="flex items-center gap-3 text-sm text-on-surface-variant mt-1">
+<span class="font-mono bg-surface-container-low px-2 py-0.5 rounded text-[10px]">TXN_884291_A</span>
+<span>•</span>
+<span>Oct 24, 2023 at 2:15 PM</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-12 text-right">
+<div>
+<p class="text-xl font-bold text-primary">-$1,499.00</p>
+<p class="text-xs font-medium text-secondary">Technology &amp; Hardware</p>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-4 py-1.5 bg-green-50 text-green-700 text-xs font-bold rounded-full uppercase tracking-wider">Settled</span>
+<button class="text-secondary text-sm font-bold hover:underline transition-all">View Receipt</button>
+</div>
+</div>
+</div>
+<!-- Item 2: Pending -->
+<div class="group bg-surface-container-lowest rounded-[1.5rem] p-5 flex items-center justify-between hover:shadow-[0_20px_40px_rgba(0,26,69,0.06)] transition-all duration-300">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 bg-surface-container-low rounded-2xl flex items-center justify-center p-3 overflow-hidden">
+<img alt="AWS" class="w-full h-full object-contain" data-alt="modern cloud computing provider logo on light grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT-vcMNQ_Qy22lxXAO2mLtf6f8UUCZMvahYtCn-eSasv1t_K7oEEDkeGSNDM5AOMJ_Kq5UDzGjTvWASLLxlQnwQbxZNl9wPCy-5UD76orrWd_L_e9dPQHaPVsObs4NIaw08VZV-XQ0KW-aivgLxhxIUmzH_ifcVm4N4rNTyjfzrwSdNhgFzAV2AjwQtAydV3HAWMjPiFj2VgNlSY5_EKv-qMYMZQLXOjJlsrdXD2qnd3BkTbM_08YQLPcYTyKPGYSmAmKzsGILqT50"/>
+</div>
+<div>
+<h4 class="text-lg font-bold text-primary">Amazon Web Services</h4>
+<div class="flex items-center gap-3 text-sm text-on-surface-variant mt-1">
+<span class="font-mono bg-surface-container-low px-2 py-0.5 rounded text-[10px]">TXN_772019_C</span>
+<span>•</span>
+<span>Oct 25, 2023 at 09:12 AM</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-12 text-right">
+<div>
+<p class="text-xl font-bold text-primary">-$4,210.45</p>
+<p class="text-xs font-medium text-secondary">Cloud Infrastructure</p>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-4 py-1.5 bg-blue-50 text-blue-700 text-xs font-bold rounded-full uppercase tracking-wider">Pending</span>
+<button class="text-secondary text-sm font-bold hover:underline transition-all">View Receipt</button>
+</div>
+</div>
+</div>
+<!-- Item 3: Flagged -->
+<div class="group bg-surface-container-lowest rounded-[1.5rem] p-5 flex items-center justify-between border-2 border-transparent hover:border-error/10 hover:shadow-[0_20px_40px_rgba(186,26,26,0.06)] transition-all duration-300">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 bg-surface-container-low rounded-2xl flex items-center justify-center p-3 overflow-hidden">
+<img alt="Unknown" class="w-full h-full object-contain" data-alt="placeholder logo symbol for unidentified international transaction" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFo7DLfwJapS3t5eftQwfqk_M-mol08IPf8GQf74RmUs9DwUsk2WmYNBDI3C7BibmQGoTgnKti_JueeuKp_5kFfUpp-KsGRdhXaTnj45a84sJhWgLtafHdXQqY8HEJ2rSf8mjIIlHuaTm9bePrGrmjHfC14IX_ltlJbYwOcrbnAeysaURJNgOgR2yQyHprlx4OXgnHjbEZakODe3QLRO_yBg0NDPYDNHBKZdlxeZLwf4DZge7GjGg-77nsnbCXDhAeTtdcLknLJ2fk"/>
+</div>
+<div>
+<h4 class="text-lg font-bold text-primary">International Transfer — HK</h4>
+<div class="flex items-center gap-3 text-sm text-on-surface-variant mt-1">
+<span class="font-mono bg-surface-container-low px-2 py-0.5 rounded text-[10px]">TXN_FLAG_9122</span>
+<span>•</span>
+<span>Oct 25, 2023 at 04:44 AM</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-12 text-right">
+<div>
+<p class="text-xl font-bold text-primary">-$12,000.00</p>
+<p class="text-xs font-medium text-error">Uncategorized</p>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-4 py-1.5 bg-error-container text-error text-xs font-bold rounded-full uppercase tracking-wider">Flagged</span>
+<button class="text-secondary text-sm font-bold hover:underline transition-all">Resolve</button>
+</div>
+</div>
+</div>
+<!-- Item 4: Settled -->
+<div class="group bg-surface-container-lowest rounded-[1.5rem] p-5 flex items-center justify-between hover:shadow-[0_20px_40px_rgba(0,26,69,0.06)] transition-all duration-300">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 bg-surface-container-low rounded-2xl flex items-center justify-center p-3 overflow-hidden">
+<img alt="Stripe" class="w-full h-full object-contain" data-alt="financial payment gateway logo in vibrant purple hues" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAYhRf6OebzCSayQLfepHPLl0eHHPWyH6M6Y62lvtOs5SUBhOH46C47ZcecCcRS6NvnHFLP2er5iJy3t9l2jVoBYxSERzR91VP5ogfX4TYUC3AAzrUGWaygPAkHmm_GnYc6NnxVpeMpjm8yC4kBV2LHUzxuID1FmkDVZBZR2MppMbeSjNh1OXTtePinWgC6EZ2YnksHt3SiFZVSoeW1T0vadwuOG7P0R11Spr8RAYLrUG9zMssFBtVceM2ZDDuFu7xPh9Mnq4F2r7F"/>
+</div>
+<div>
+<h4 class="text-lg font-bold text-primary">Client Inbound — Nova Soft</h4>
+<div class="flex items-center gap-3 text-sm text-on-surface-variant mt-1">
+<span class="font-mono bg-surface-container-low px-2 py-0.5 rounded text-[10px]">TXN_INC_0029</span>
+<span>•</span>
+<span>Oct 23, 2023 at 11:00 AM</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-12 text-right">
+<div>
+<p class="text-xl font-bold text-green-600">+$25,500.00</p>
+<p class="text-xs font-medium text-secondary">Service Revenue</p>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-4 py-1.5 bg-green-50 text-green-700 text-xs font-bold rounded-full uppercase tracking-wider">Settled</span>
+<button class="text-secondary text-sm font-bold hover:underline transition-all">View Invoice</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- SideNavBar (AI Agent) -->
+<aside class="fixed right-0 top-16 h-[calc(100vh-64px)] w-80 bg-[#F7F9FC] border-l border-slate-200 flex flex-col p-4 z-40">
+<!-- Agent Header -->
+<div class="flex items-center gap-4 mb-8 p-2">
+<div class="relative">
+<img alt="Aeternus Agent" class="w-12 h-12 rounded-2xl object-cover" data-alt="futuristic ethereal 3D headshot of an AI agent with translucent glass skin and glowing blue circuitry" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzHvo5W-io25KRiR3IVuxfwtQvhsl4mqHBM6zNyFYDGBwFAdcV_YTu8cDF3CT13CfWFJzGCXw1Ofsl2b-GaSm1XGNT6zZHXC550szTNqDvV7bUrkrgCxIAklzo2c4l43dDw971V7sO7pW2XAAxTYJ__sdsW5TmnxSRmK5Pf557bBQhFL0nZk9udLBSfzDjKjtOgme6NMzjerlQ5NT4yWvFDrDdsIC-L09_7Y74ZooBw_uaUYe5Qj1yI17_tilH9Cz3ui7jJIVyx5AD"/>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></span>
+</div>
+<div>
+<h2 class="text-lg font-bold text-[#006687]">Aeternus Agent</h2>
+<p class="text-[10px] uppercase tracking-widest font-bold text-slate-500">Ready for instruction</p>
+</div>
+</div>
+<!-- AI Chat Area -->
+<div class="flex-grow space-y-6 overflow-y-auto no-scrollbar pb-6">
+<div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-secondary transition-all">
+<p class="text-xs font-bold uppercase text-secondary mb-2 tracking-widest">Intelligence Update</p>
+<p class="text-sm text-primary leading-relaxed">I've identified <span class="font-bold">4 uncategorized</span> transactions from your recent AWS billing cycle. Shall I process them?</p>
+</div>
+<div class="space-y-3">
+<p class="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant ml-2">Quick Actions</p>
+<button class="w-full flex items-center justify-between p-4 bg-white hover:bg-white/50 rounded-xl transition-all border border-transparent hover:border-secondary/20 group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">category</span>
+<span class="text-xs font-semibold text-primary">Categorize Transactions</span>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-300 group-hover:translate-x-1 transition-transform">arrow_forward_ios</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-white hover:bg-white/50 rounded-xl transition-all border border-transparent hover:border-secondary/20 group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">request_quote</span>
+<span class="text-xs font-semibold text-primary">Export for Taxes</span>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-300 group-hover:translate-x-1 transition-transform">arrow_forward_ios</span>
+</button>
+</div>
+<!-- Agent Tabs (Internal Nav) -->
+<div class="grid grid-cols-2 gap-2 mt-4">
+<div class="flex items-center gap-3 bg-white text-[#006687] rounded-xl p-3 shadow-sm cursor-pointer hover:translate-x-[-4px] transition-transform">
+<span class="material-symbols-outlined text-lg">smart_toy</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">AI Chat</span>
+</div>
+<div class="flex items-center gap-3 text-slate-500 p-3 cursor-pointer hover:bg-white/50 rounded-xl transition-all">
+<span class="material-symbols-outlined text-lg">terminal</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Logs</span>
+</div>
+<div class="flex items-center gap-3 text-slate-500 p-3 cursor-pointer hover:bg-white/50 rounded-xl transition-all">
+<span class="material-symbols-outlined text-lg">insights</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Strategy</span>
+</div>
+<div class="flex items-center gap-3 text-slate-500 p-3 cursor-pointer hover:bg-white/50 rounded-xl transition-all">
+<span class="material-symbols-outlined text-lg">database</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Memory</span>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="pt-4 border-t border-slate-200">
+<button class="w-full bg-[#001A45] text-white py-4 rounded-2xl font-bold text-sm tracking-wider shadow-lg shadow-primary/10 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">add</span>
+                New Task
+            </button>
+<div class="flex justify-around mt-4">
+<div class="flex items-center gap-1 text-slate-400 text-[10px] font-bold uppercase">
+<span class="material-symbols-outlined text-sm">help</span>
+                    Help
+                </div>
+<div class="flex items-center gap-1 text-green-600 text-[10px] font-bold uppercase">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                    Status
+                </div>
+</div>
+</div>
+</aside>
+</body></html>

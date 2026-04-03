@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aeternus AI | Financial Curator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#224585",
+                    "on-tertiary-fixed-variant": "#773213",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f2f4f7",
+                    "surface-container-highest": "#e0e3e6",
+                    "secondary-container": "#2dc6ff",
+                    "tertiary-container": "#5b1d01",
+                    "surface-dim": "#d8dadd",
+                    "surface-container": "#eceef1",
+                    "inverse-surface": "#2d3133",
+                    "primary-fixed": "#d9e2ff",
+                    "surface-variant": "#e0e3e6",
+                    "secondary-fixed-dim": "#71d2ff",
+                    "on-primary-container": "#7998de",
+                    "on-tertiary-container": "#de815c",
+                    "outline-variant": "#c4c6d2",
+                    "primary-container": "#002e6e",
+                    "on-primary-fixed": "#001943",
+                    "outline": "#747781",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#afc6ff",
+                    "on-tertiary-fixed": "#370e00",
+                    "on-surface-variant": "#434750",
+                    "inverse-on-surface": "#eff1f4",
+                    "secondary-fixed": "#c0e8ff",
+                    "on-secondary-fixed": "#001e2b",
+                    "surface": "#f7f9fc",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e6e8eb",
+                    "on-secondary-container": "#004f69",
+                    "tertiary": "#390e00",
+                    "on-background": "#191c1e",
+                    "secondary": "#006687",
+                    "tertiary-fixed": "#ffdbce",
+                    "background": "#f7f9fc",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#191c1e",
+                    "primary-fixed-dim": "#afc6ff",
+                    "surface-bright": "#f7f9fc",
+                    "tertiary-fixed-dim": "#ffb599",
+                    "on-secondary-fixed-variant": "#004d66",
+                    "primary": "#001a45",
+                    "surface-tint": "#3d5d9e",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "16px",
+                    "xl": "24px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"],
+                    "mono": ["JetBrains Mono"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e0e3e6;
+            border-radius: 10px;
+        }
+        .glass-header {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface overflow-hidden h-screen flex flex-col">
+<!-- TopNavBar: Browser Shell Logic -->
+<nav class="flex justify-between items-center w-full px-6 h-16 sticky top-0 z-50 bg-surface/80 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,26,69,0.06)] border-b-0">
+<!-- Logo/Brand Anchor -->
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold tracking-tighter text-[#001A45]">Aeternus AI</span>
+<div class="h-6 w-[1px] bg-outline-variant/30"></div>
+<!-- Navigation Links as Tabs -->
+<div class="flex gap-6">
+<button class="font-inter text-sm font-bold tracking-tight text-[#006687] border-b-2 border-[#006687] pb-1 active:scale-95 transition-transform transition-all duration-300">Context</button>
+<button class="font-inter text-sm font-medium tracking-tight text-[#434750] hover:bg-[#002E6E]/5 transition-all duration-300 active:scale-95 transition-transform">Refresh</button>
+</div>
+</div>
+<!-- Address Bar (Centered) -->
+<div class="absolute left-1/2 -translate-x-1/2 w-1/3 min-w-[320px]">
+<div class="flex items-center gap-3 bg-surface-container-lowest px-4 py-2 rounded-xl shadow-[0_4px_12px_rgba(0,26,69,0.04)] group transition-all duration-300 hover:shadow-[0_8px_20px_rgba(0,26,69,0.08)]">
+<span class="material-symbols-outlined text-[#006687] text-lg" data-icon="lock">lock</span>
+<span class="text-sm font-medium text-on-surface-variant flex-1 select-none">aeternus.ai/finance/dashboard</span>
+<button class="material-symbols-outlined text-[#434750] text-lg hover:text-primary transition-colors" data-icon="refresh">refresh</button>
+</div>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-full hover:bg-[#002E6E]/5 transition-all duration-300">
+<span class="material-symbols-outlined text-[#434750]" data-icon="account_circle">account_circle</span>
+</button>
+<button class="p-2 rounded-full hover:bg-[#002E6E]/5 transition-all duration-300">
+<span class="material-symbols-outlined text-[#434750]" data-icon="settings">settings</span>
+</button>
+</div>
+</nav>
+<div class="flex flex-1 overflow-hidden">
+<!-- Main Content Canvas (Financial Dashboard Mock) -->
+<main class="flex-1 overflow-y-auto p-8 bg-surface-container-low transition-all duration-300 mr-[380px]">
+<div class="max-w-5xl mx-auto space-y-8">
+<!-- Dashboard Header -->
+<header class="flex justify-between items-end">
+<div>
+<h1 class="text-4xl font-bold tracking-tight text-primary">Portfolio Overview</h1>
+<p class="text-on-surface-variant mt-2 font-medium">Global Markets Analysis • Updated 2m ago</p>
+</div>
+<div class="flex gap-2">
+<span class="px-4 py-2 bg-primary-container text-white rounded-lg text-xs font-bold uppercase tracking-widest">Live Feed</span>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- High-End Card: Total Value -->
+<div class="col-span-8 bg-surface-container-lowest rounded-xl p-8 shadow-[0_20px_40px_rgba(0,26,69,0.04)]">
+<div class="flex justify-between items-start mb-12">
+<h2 class="text-xs uppercase tracking-widest font-bold text-on-surface-variant">Asset Distribution</h2>
+<span class="text-secondary font-bold">+12.4% YTD</span>
+</div>
+<div class="h-64 flex items-end gap-4">
+<div class="flex-1 bg-primary rounded-t-lg transition-all duration-300 hover:opacity-80" style="height: 60%"></div>
+<div class="flex-1 bg-primary-container rounded-t-lg transition-all duration-300 hover:opacity-80" style="height: 45%"></div>
+<div class="flex-1 bg-secondary rounded-t-lg transition-all duration-300 hover:opacity-80" style="height: 85%"></div>
+<div class="flex-1 bg-secondary-container rounded-t-lg transition-all duration-300 hover:opacity-80" style="height: 30%"></div>
+<div class="flex-1 bg-primary rounded-t-lg transition-all duration-300 hover:opacity-80" style="height: 70%"></div>
+</div>
+</div>
+<!-- Mini Metric Card -->
+<div class="col-span-4 bg-primary-container rounded-xl p-8 text-white relative overflow-hidden flex flex-col justify-between">
+<div class="relative z-10">
+<h2 class="text-xs uppercase tracking-widest font-bold opacity-70 mb-1">Net Worth</h2>
+<p class="text-3xl font-bold">$2,841,092</p>
+</div>
+<div class="mt-4 relative z-10">
+<button class="bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg text-xs font-bold w-full active:scale-95 transition-all">Download Report</button>
+</div>
+<!-- Background Texture -->
+<div class="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+</div>
+<!-- Transaction List -->
+<div class="col-span-12 space-y-4">
+<h3 class="text-lg font-bold text-primary">Recent Transactions</h3>
+<div class="bg-surface-container-lowest rounded-xl divide-y divide-surface-container">
+<div class="flex items-center justify-between p-6 hover:bg-surface transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<p class="font-bold text-primary">GS Equities Transfer</p>
+<p class="text-xs text-on-surface-variant">Aug 24, 2024 • 09:41 AM</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-lg text-primary">$12,450.00</p>
+<span class="text-[10px] bg-secondary-container/20 text-secondary px-2 py-0.5 rounded font-bold uppercase">Settled</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-6 hover:bg-surface transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="shopping_bag">shopping_bag</span>
+</div>
+<div>
+<p class="font-bold text-primary">Apple Store Retail</p>
+<p class="text-xs text-on-surface-variant">Aug 23, 2024 • 04:15 PM</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-lg text-primary">$3,499.00</p>
+<span class="text-[10px] bg-surface-container text-on-surface-variant px-2 py-0.5 rounded font-bold uppercase">Pending</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- SideNavBar: Agent Sidebar Logic -->
+<aside class="fixed right-0 top-0 h-full w-[380px] bg-surface-container-lowest/70 backdrop-blur-2xl shadow-[-20px_0_40px_rgba(0,26,69,0.04)] flex flex-col z-40 border-l border-white/20">
+<!-- Sidebar Header -->
+<div class="glass-header p-6 flex items-center gap-4 border-b-0">
+<div class="bg-gradient-to-br from-[#001A45] to-[#002E6E] rounded-xl p-2 h-12 w-12 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-2xl" data-icon="smart_toy">smart_toy</span>
+</div>
+<div class="flex-1">
+<h2 class="text-sm font-extrabold tracking-tight text-primary uppercase">Aeternus Agent</h2>
+<p class="text-[10px] font-bold text-secondary uppercase tracking-widest">Financial Curator Active</p>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span>
+</button>
+</div>
+<!-- Chat Area -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+<!-- Finance Context Card -->
+<div class="bg-surface-container-low rounded-xl p-5 shadow-[0_4px_12px_rgba(0,26,69,0.04)] space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Transaction Context</span>
+<div class="flex items-center gap-1 bg-secondary-container/20 text-secondary px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-xs" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-[9px] font-bold">Verified</span>
+</div>
+</div>
+<div class="flex justify-between items-baseline">
+<p class="text-xs text-on-surface-variant">Proposed Transfer</p>
+<p class="text-2xl font-bold text-primary">$45,000.00</p>
+</div>
+<div class="pt-3 border-t border-white/50 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="text-[10px] text-on-surface-variant font-mono">ID: xF92..A4</span>
+</div>
+<span class="text-[10px] font-bold text-primary">Goldman Sachs • High Yield</span>
+</div>
+</div>
+<!-- Message: User -->
+<div class="flex justify-end ml-12">
+<div class="bg-white p-4 rounded-xl rounded-tr-none shadow-[0_4px_12px_rgba(0,26,69,0.06)] text-sm text-on-surface leading-relaxed">
+                        Execute the transfer to the High Yield account and summarize the projected tax impact.
+                    </div>
+</div>
+<!-- Message: Agent -->
+<div class="flex justify-start mr-12">
+<div class="bg-[#E0F7FF] border-l-4 border-[#00B9F1] p-4 rounded-xl rounded-tl-none text-sm text-on-surface leading-relaxed relative">
+                        Processing the $45,000.00 transfer. I have calculated the projected quarterly tax impact based on current interest rates. The net effect will be +$184.20 in taxable income per month.
+                        <div class="mt-3 flex gap-2">
+<span class="px-2 py-1 bg-white/50 rounded text-[10px] font-bold text-secondary">TAX ADVICE</span>
+<span class="px-2 py-1 bg-white/50 rounded text-[10px] font-bold text-secondary">AUTO-REBALANCING</span>
+</div>
+</div>
+</div>
+<!-- Thinking State -->
+<div class="flex justify-start">
+<div class="bg-[#E0F7FF] border-l-4 border-[#00B9F1] px-4 py-3 rounded-full flex gap-1 items-center">
+<div class="w-1.5 h-1.5 bg-[#00B9F1] rounded-full animate-bounce"></div>
+<div class="w-1.5 h-1.5 bg-[#00B9F1] rounded-full animate-bounce [animation-delay:0.2s]"></div>
+<div class="w-1.5 h-1.5 bg-[#00B9F1] rounded-full animate-bounce [animation-delay:0.4s]"></div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-6 pt-2 bg-surface-container-lowest/80">
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_12px_24px_rgba(0,26,69,0.08)] p-2 border border-outline-variant/10">
+<textarea class="w-full bg-transparent border-none focus:ring-0 text-sm p-3 min-h-[80px] resize-none placeholder:text-on-surface-variant/50" placeholder="Ask Aeternus anything..."></textarea>
+<div class="flex justify-between items-center px-3 pb-2">
+<div class="flex gap-2">
+<button class="p-2 text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="attach_file">attach_file</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="mic">mic</span>
+</button>
+</div>
+<button class="bg-primary hover:bg-primary-container text-white px-6 py-2 rounded-lg text-xs font-bold flex items-center gap-2 active:scale-95 transition-all cubic-bezier-300ms-smooth">
+                            Execute Transaction
+                            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<div class="flex justify-around items-center h-16 border-t border-surface-container">
+<button class="flex flex-col items-center gap-1 text-[#001A45] border-r-4 border-[#006687] pr-4 py-2 transition-transform duration-300">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-[9px] font-bold uppercase tracking-widest">Context</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-[#434750] opacity-60 hover:translate-x-[-4px] transition-transform duration-300">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="text-[9px] font-bold uppercase tracking-widest">Agent</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-[#434750] opacity-60 hover:translate-x-[-4px] transition-transform duration-300">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="text-[9px] font-bold uppercase tracking-widest">Payments</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-[#434750] opacity-60 hover:translate-x-[-4px] transition-transform duration-300">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="text-[9px] font-bold uppercase tracking-widest">History</span>
+</button>
+</div>
+</aside>
+</div>
+</body></html>

@@ -1,0 +1,55 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+    content: [
+        "./index.html",
+        "./src/**/*.{js,ts,jsx,tsx}",
+    ],
+    theme: {
+        extend: {
+            colors: {
+                "primary": "#001a45",
+                "on-primary": "#ffffff",
+                "primary-container": "#002e6e",
+                "on-primary-container": "#7998de",
+                "secondary": "#006687",
+                "on-secondary": "#ffffff",
+                "secondary-container": "#2dc6ff",
+                "on-secondary-container": "#004f69",
+                "tertiary": "#390e00",
+                "on-tertiary": "#ffffff",
+                "tertiary-container": "#5b1d01",
+                "on-tertiary-container": "#de815c",
+                "surface": "#f7f9fc",
+                "on-surface": "#191c1e",
+                "surface-variant": "#e0e3e6",
+                "on-surface-variant": "#434750",
+                "surface-container-low": "#f2f4f7",
+                "surface-container": "#eceef1",
+                "surface-container-high": "#e6e8eb",
+                "surface-container-highest": "#e0e3e6",
+                "surface-container-lowest": "#ffffff",
+                "outline": "#747781",
+                "outline-variant": "#c4c6d2",
+                "error": "#ba1a1a",
+                "on-error": "#ffffff",
+                "error-container": "#ffdad6",
+                "on-error-container": "#93000a",
+                "background": "#f7f9fc",
+                "on-background": "#191c1e",
+            },
+            borderRadius: {
+                "lg": "16px",
+                "xl": "24px",
+                "xxl": "32px",
+            },
+            fontFamily: {
+                sans: ["Inter", "system-ui", "sans-serif"],
+                headline: ["Inter", "sans-serif"],
+                body: ["Inter", "sans-serif"],
+                mono: ["JetBrains Mono", "monospace"],
+            },
+        },
+    },
+    plugins: [],
+}
+

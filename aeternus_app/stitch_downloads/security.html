@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Security &amp; Settings | Aeternus AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#001a45",
+            "surface-container-low": "#f2f4f7",
+            "surface-container-high": "#e6e8eb",
+            "primary-fixed": "#d9e2ff",
+            "on-error": "#ffffff",
+            "primary-container": "#002e6e",
+            "on-secondary": "#ffffff",
+            "on-secondary-container": "#004f69",
+            "on-background": "#191c1e",
+            "inverse-surface": "#2d3133",
+            "tertiary-container": "#5b1d01",
+            "surface-container": "#eceef1",
+            "tertiary-fixed": "#ffdbce",
+            "surface-container-lowest": "#ffffff",
+            "secondary": "#006687",
+            "primary-fixed-dim": "#afc6ff",
+            "on-primary-fixed-variant": "#224585",
+            "secondary-fixed": "#c0e8ff",
+            "on-tertiary-container": "#de815c",
+            "tertiary": "#390e00",
+            "on-error-container": "#93000a",
+            "error": "#ba1a1a",
+            "secondary-fixed-dim": "#71d2ff",
+            "on-secondary-fixed": "#001e2b",
+            "on-primary-container": "#7998de",
+            "outline-variant": "#c4c6d2",
+            "surface-tint": "#3d5d9e",
+            "on-tertiary-fixed": "#370e00",
+            "surface": "#f7f9fc",
+            "on-primary-fixed": "#001943",
+            "surface-dim": "#d8dadd",
+            "surface-container-highest": "#e0e3e6",
+            "surface-variant": "#e0e3e6",
+            "on-tertiary": "#ffffff",
+            "inverse-on-surface": "#eff1f4",
+            "surface-bright": "#f7f9fc",
+            "error-container": "#ffdad6",
+            "outline": "#747781",
+            "secondary-container": "#2dc6ff",
+            "on-primary": "#ffffff",
+            "background": "#f7f9fc",
+            "tertiary-fixed-dim": "#ffb599",
+            "on-tertiary-fixed-variant": "#773213",
+            "on-surface": "#191c1e",
+            "on-surface-variant": "#434750",
+            "on-secondary-fixed-variant": "#004d66",
+            "inverse-primary": "#afc6ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "xxl": "1.5rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Inter"],
+            "body": ["Inter"],
+            "label": ["Inter"],
+            "mono": ["JetBrains Mono"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-header {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+    }
+    .premium-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .premium-card:hover {
+      box-shadow: 0 20px 40px rgba(0, 26, 69, 0.06);
+      transform: translateY(-2px);
+    }
+    .sidebar-active {
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center h-16 px-8 w-full bg-white/80 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,26,69,0.06)]">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-[#001A45]">Aeternus AI</span>
+<div class="hidden md:flex gap-6 font-['Inter'] text-sm font-medium tracking-tight">
+<a class="text-slate-500 hover:text-[#001A45] transition-all duration-300" href="#">Dashboard</a>
+<a class="text-slate-500 hover:text-[#001A45] transition-all duration-300" href="#">Assets</a>
+<a class="text-slate-500 hover:text-[#001A45] transition-all duration-300" href="#">Transactions</a>
+<a class="text-slate-500 hover:text-[#001A45] transition-all duration-300" href="#">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<span class="material-symbols-outlined p-2 text-slate-500 hover:bg-slate-50 rounded-full cursor-pointer transition-all active:scale-95">notifications</span>
+<span class="material-symbols-outlined p-2 text-[#006687] font-bold border-b-2 border-[#006687] pb-1 cursor-pointer transition-all active:scale-95">settings</span>
+</div>
+<button class="bg-[#001A45] text-white px-5 py-2 rounded-xl text-sm font-semibold active:scale-95 transition-transform">Connect Wallet</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-slate-200">
+<img alt="User profile" data-alt="close-up portrait of a professional man in a dark suit with a clean background, soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQIaKum1m3xRrm4YsQijkQ04m8FZXY7N9vIedMOpPDtdbo9Sp8i0ao-3itnUO6JLWSkLLuB4ApOFhSoGIh6Uc5ZPVo-fX1WKMqyT_oKh9NwxhFfNC-M70RM-lWxS4xJBOOgeOhjCOhMbTous5BgHje7GDMTQAiXK1aPn0M_50SNbqze_QJtTiRIc0mhVL6PWf4ezhi3AYxfe13CyRAMPNUItywEuN3Z1QZLFRdBMLTOKXdVoTmcmm7INPR_4endg4ggnExKPf0IvnY"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar / Safety Monitor (Shared Component / Sidebar) -->
+<aside class="fixed right-0 top-16 h-[calc(100vh-64px)] w-80 bg-[#F7F9FC] flex flex-col p-4 border-l border-slate-200">
+<div class="flex items-center gap-4 mb-8 p-2">
+<div class="relative">
+<div class="w-12 h-12 rounded-2xl bg-primary-container flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<div>
+<h3 class="text-sm font-bold text-[#001A45]">Safety Monitor</h3>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold">Active Protection</p>
+</div>
+</div>
+<div class="bg-white rounded-2xl p-4 mb-6 shadow-sm border border-blue-50">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Security Level</span>
+<span class="text-xs font-bold text-[#006687]">HIGH</span>
+</div>
+<div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container w-[92%] rounded-full"></div>
+</div>
+<p class="text-[11px] text-slate-400 mt-2 leading-relaxed">System core is isolated. Real-time encryption active.</p>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<div class="flex items-center gap-3 bg-white text-[#006687] rounded-xl p-3 shadow-sm transition-all hover:translate-x-[-4px]">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-['Inter'] text-xs font-semibold uppercase tracking-widest">AI Chat</span>
+</div>
+<div class="flex items-center gap-3 text-slate-500 p-3 hover:bg-white/50 transition-all hover:translate-x-[-4px]">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-['Inter'] text-xs font-semibold uppercase tracking-widest">Action Logs</span>
+</div>
+<div class="flex items-center gap-3 text-slate-500 p-3 hover:bg-white/50 transition-all hover:translate-x-[-4px]">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-['Inter'] text-xs font-semibold uppercase tracking-widest">Strategy</span>
+</div>
+<div class="flex items-center gap-3 text-slate-500 p-3 hover:bg-white/50 transition-all hover:translate-x-[-4px]">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span class="font-['Inter'] text-xs font-semibold uppercase tracking-widest">Memory</span>
+</div>
+</nav>
+<div class="mt-auto space-y-4">
+<button class="w-full py-4 bg-[#001A45] text-white rounded-2xl font-bold text-sm tracking-tight hover:bg-[#002e6e] transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">radar</span>
+        Scan for Vulnerabilities
+      </button>
+<div class="flex flex-col gap-1 border-t border-slate-200 pt-4">
+<div class="flex items-center gap-3 text-slate-400 p-2 text-xs font-semibold uppercase tracking-widest cursor-pointer hover:text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="help">help</span>
+          Help
+        </div>
+<div class="flex items-center gap-3 text-slate-400 p-2 text-xs font-semibold uppercase tracking-widest cursor-pointer hover:text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
+          Status
+        </div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-12 pr-80 pl-8 max-w-7xl mx-auto">
+<!-- Editorial Header -->
+<header class="mb-12">
+<h1 class="text-[3.5rem] font-bold text-primary leading-tight tracking-tight">Security &amp; Controls</h1>
+<p class="text-on-surface-variant text-lg max-w-2xl mt-4">Fine-tune your digital fortress. Aeternus AI uses institutional-grade encryption to safeguard your assets and privacy.</p>
+</header>
+<!-- Bento-ish Layout for Content -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Account Security Section (Col-span 8) -->
+<section class="col-span-12 lg:col-span-8 space-y-6">
+<div class="premium-card p-8 bg-surface-container-lowest">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold text-primary">Account Security</h2>
+<span class="bg-secondary-container/10 text-secondary font-bold text-xs px-3 py-1 rounded-full uppercase tracking-widest">Enterprise Level</span>
+</div>
+<!-- 2FA Control -->
+<div class="flex items-center justify-between p-6 rounded-2xl bg-surface-container-low mb-6">
+<div class="flex items-center gap-6">
+<div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-secondary shadow-sm">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">fingerprint</span>
+</div>
+<div>
+<h4 class="font-bold text-primary text-lg">Two-Factor Authentication</h4>
+<p class="text-on-surface-variant text-sm">Biometric and app-based validation enabled.</p>
+</div>
+</div>
+<button class="bg-primary text-white px-6 py-2.5 rounded-xl text-sm font-semibold hover:bg-primary-container transition-all">Configure</button>
+</div>
+<!-- Login History (Monospaced Technical Details) -->
+<div class="space-y-4">
+<h3 class="text-xs font-extrabold uppercase tracking-widest text-slate-400 px-2">Recent Login History</h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm border-l-4 border-secondary">
+<div class="flex flex-col">
+<span class="text-sm font-bold text-primary">Chrome on macOS</span>
+<span class="text-[10px] font-mono text-slate-400">IP: 192.168.1.12 • Session: _ae_4920</span>
+</div>
+<div class="text-right">
+<span class="block text-sm font-bold text-primary">Today, 10:42 AM</span>
+<span class="text-[10px] text-green-600 font-bold uppercase tracking-widest">Active Now</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl opacity-70">
+<div class="flex flex-col">
+<span class="text-sm font-bold text-primary">Aeternus App (iOS)</span>
+<span class="text-[10px] font-mono text-slate-400">IP: 72.14.19.244 • Session: _ae_3108</span>
+</div>
+<div class="text-right">
+<span class="block text-sm font-bold text-primary">Yesterday, 08:15 PM</span>
+<span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Terminated</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Privacy Controls (Grid Layout) -->
+<div class="premium-card p-8 bg-surface-container-lowest">
+<h2 class="text-2xl font-bold text-primary mb-8">Privacy Controls</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="p-6 rounded-2xl bg-surface-container-low hover:bg-surface-container-high transition-all group">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">visibility_off</span>
+<h4 class="font-bold text-primary">Stealth Mode</h4>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-4">Hides your portfolio balance from the main dashboard when enabled.</p>
+<div class="w-12 h-6 bg-slate-300 rounded-full relative cursor-pointer">
+<div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+</div>
+</div>
+<div class="p-6 rounded-2xl bg-surface-container-low hover:bg-surface-container-high transition-all group border-2 border-secondary/20">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">data_exploration</span>
+<h4 class="font-bold text-primary">AI Learning Exclusion</h4>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-4">Prevent your transaction patterns from being used for global AI optimization.</p>
+<div class="w-12 h-6 bg-secondary rounded-full relative cursor-pointer">
+<div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Connected Institutions Section (Col-span 4) -->
+<section class="col-span-12 lg:col-span-4">
+<div class="premium-card p-8 bg-primary-container text-white relative overflow-hidden h-full">
+<!-- Abstract Background Texture -->
+<div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-secondary opacity-20 blur-3xl rounded-full"></div>
+<h2 class="text-2xl font-bold mb-6 relative z-10">Connected Institutions</h2>
+<p class="text-on-primary-container text-sm mb-8 relative z-10">Manage secure API bridges to your external financial accounts.</p>
+<div class="space-y-4 relative z-10">
+<!-- Institution Card -->
+<div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 flex items-center justify-between group cursor-pointer hover:bg-white/20 transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center p-2">
+<img alt="Bank Logo" class="w-full h-full object-contain" data-alt="minimal logo of a modern bank, flat vector icon style, blue and white colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiT5TWx5KubvzNMtSS_oSDc6w0hvdAU40AwmeOnolJfVl0MHEPRQqUKwuiHAUGgRczLwiK_VwLBYS4w7XzQ8ddGmpA8l08p76nZEvmezIi0UIxLff3t-2xH6sOqmbKK-2SDi2taux4XLuzHG4kjYdj-J2pcE9DeCpcLj80TN4wW9NhfxxMXZDBYaA-MIdvZX9XYSA0PILwrVRmjS08BJRZP-zNJ3tuR96Jtgq8KYxVq22npf14Hu2rStdfGuKlgAVIswucyWSaV5Vb"/>
+</div>
+<div>
+<span class="block text-sm font-bold">Goldman Sachs</span>
+<span class="block text-[10px] text-on-primary-container uppercase tracking-widest font-bold">Trading Account</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-primary-container group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 flex items-center justify-between group cursor-pointer hover:bg-white/20 transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center p-2">
+<img alt="Crypto Logo" class="w-full h-full object-contain" data-alt="minimal logo of a cryptocurrency exchange, orange and white geometric design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4DXfmpWBuDzlVeDpM4D1ks-2b_nwN116NEFLXmErBxvpgzVfGBKaZ6f_GxVI1DYZhViNFsYEpvNAhFL2ZSmRGTbBSGi8gvPe6k5WlzEwz2cZ_8laaumUpSNvj9A18shNboxdByGRZn6zcT_ay8-Igz4SSGQ4bcwv0HSFx9mdDaNEAh1_6WZxcnOLwbzFh0xNYYNASrEUh6gYL5vMG02kT-S0UKUtBGSTu0-hb2NcAGm_W0zwQpyNbqlWIKqoWg0gR5AkHxZGfxdTP"/>
+</div>
+<div>
+<span class="block text-sm font-bold">Binance Pro</span>
+<span class="block text-[10px] text-on-primary-container uppercase tracking-widest font-bold">Yield Wallet</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-primary-container group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 flex items-center justify-between group cursor-pointer hover:bg-white/20 transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center p-2">
+<span class="material-symbols-outlined text-primary text-xl">account_balance</span>
+</div>
+<div>
+<span class="block text-sm font-bold">JP Morgan Chase</span>
+<span class="block text-[10px] text-on-primary-container uppercase tracking-widest font-bold">Savings</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-primary-container group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</div>
+<button class="w-full mt-12 bg-secondary-container text-on-secondary-container py-4 rounded-2xl font-bold hover:brightness-110 transition-all active:scale-95">
+            + Connect New Institution
+          </button>
+</div>
+</section>
+</div>
+<!-- Data Privacy Footer Card -->
+<div class="mt-12 premium-card p-12 bg-surface-container-low flex flex-col md:flex-row items-center gap-8 border border-white/50">
+<div class="w-24 h-24 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-5xl">verified_user</span>
+</div>
+<div class="flex-grow text-center md:text-left">
+<h2 class="text-3xl font-bold text-primary mb-2">Your data is yours. Period.</h2>
+<p class="text-on-surface-variant max-w-2xl leading-relaxed">Aeternus AI employs Zero-Knowledge Proofs for all sensitive computations. We never store your raw credentials, and our AI models only interact with obfuscated data signatures.</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-white text-primary border border-slate-200 px-8 py-3 rounded-xl font-bold hover:bg-slate-50 transition-all">Download Audit Report</button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Hidden on desktop, shown on mobile) -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 px-6 py-3 flex justify-between items-center z-50">
+<div class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">DASHBOARD</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-[10px] font-bold">ASSETS</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-[10px] font-bold">SETTINGS</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">shield</span>
+<span class="text-[10px] font-bold">SECURITY</span>
+</div>
+</div>
+</body></html>
